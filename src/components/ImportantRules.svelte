@@ -370,6 +370,7 @@
     font-weight: 500;
   }
 
+  /* Tablet breakpoint */
   @media (max-width: 768px) {
     .filter-buttons {
       gap: 0.5rem;
@@ -378,6 +379,14 @@
     .filter-buttons button {
       padding: 0.6rem 1rem;
       font-size: 0.85rem;
+    }
+
+    .rules-header {
+      padding: 1.25rem;
+    }
+
+    .rules-header h2 {
+      font-size: 1.3rem;
     }
 
     .rule-header {
@@ -389,7 +398,92 @@
     }
 
     .rule-header h3 {
-      font-size: 1.1rem;
+      font-size: 1rem;
+    }
+
+    .rule-card {
+      padding: 1rem;
+    }
+
+    .rules-grid {
+      gap: 1rem;
+    }
+  }
+
+  /* Mobile breakpoint */
+  @media (max-width: 480px) {
+    .rules-header {
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .rules-header h2 {
+      font-size: 1.2rem;
+    }
+
+    .rules-header p {
+      font-size: 0.85rem;
+    }
+
+    .filter-buttons {
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-buttons button {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+      flex: 1 1 auto;
+    }
+
+    .rules-grid {
+      gap: 0.75rem;
+    }
+
+    .rule-card {
+      padding: 0.75rem;
+    }
+
+    .rule-header {
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .rule-icon {
+      font-size: 1.3rem;
+    }
+
+    .rule-header h3 {
+      font-size: 0.95rem;
+    }
+
+    .severity-badge {
+      padding: 0.2rem 0.5rem;
+      font-size: 0.65rem;
+    }
+
+    .rule-description {
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .rule-details,
+    .rule-consequences {
+      margin-top: 0.75rem;
+    }
+
+    .rule-details h4,
+    .rule-consequences h4 {
+      font-size: 0.85rem;
+    }
+
+    .rule-details li,
+    .rule-consequences li {
+      font-size: 0.8rem;
+    }
+
+    .rule-consequences {
+      padding: 0.5rem;
     }
   }
 </style>

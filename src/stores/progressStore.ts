@@ -22,6 +22,7 @@ function createProgressStore() {
     return {
       steps: {},
       sideQuests: {},
+      documents: {},
       todos: [],
       formData: {},
       lastUpdated: new Date().toISOString(),
@@ -98,10 +99,22 @@ function createProgressStore() {
       });
     },
 
+    toggleDocument: (documentId: string) => {
+      update((progress) => {
+        if (!progress.documents) {
+          progress.documents = {};
+        }
+        progress.documents[documentId] = !progress.documents[documentId];
+        progress.lastUpdated = new Date().toISOString();
+        return progress;
+      });
+    },
+
     resetProgress: () => {
       set({
         steps: {},
         sideQuests: {},
+        documents: {},
         todos: [],
         formData: {},
         lastUpdated: new Date().toISOString(),

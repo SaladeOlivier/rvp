@@ -1,14 +1,29 @@
 <script lang="ts">
-  import type { Step } from '../types';
+  import type { Step, StepDetail, DocumentReference } from '../types';
   import { progressStore } from '../stores/progressStore';
+  import { get } from 'svelte/store';
 
   export let step: Step;
   export let number: number;
 
   let expanded = false;
   let expandedLocations: Record<string, boolean> = {};
+  let activeTip: string | null = null;
 
   $: isCompleted = $progressStore.steps[step.id] || false;
+
+  // Create a reactive map of document IDs from this step
+  let documentMap: Record<string, boolean> = {};
+  $: {
+    const allDocs = [...(step.documentsToGive || []), ...(step.documentsToReceive || [])];
+    const newMap: Record<string, boolean> = {};
+    // Use $progressStore to create reactive dependency
+    const docs = $progressStore.documents || {};
+    for (const doc of allDocs) {
+      newMap[doc.id] = docs[doc.id] || false;
+    }
+    documentMap = newMap;
+  }
 
   function toggleStep() {
     progressStore.toggleStep(step.id);
@@ -20,6 +35,22 @@
 
   function toggleLocation(location: string) {
     expandedLocations[location] = !expandedLocations[location];
+  }
+
+  function toggleDocument(docName: string) {
+    progressStore.toggleDocument(docName);
+  }
+
+  function showTip(tip: string) {
+    activeTip = tip;
+  }
+
+  function hideTip() {
+    activeTip = null;
+  }
+
+  function isStepDetail(detail: string | StepDetail): detail is StepDetail {
+    return typeof detail === 'object' && 'text' in detail;
   }
 
   function getFlag(location: string): string {
@@ -59,28 +90,67 @@
         <h4>📝 What to Do:</h4>
         <ul>
           {#each step.details as detail}
-            <li>{detail}</li>
+            <li class="detail-item">
+              {#if isStepDetail(detail)}
+                <span class="detail-text">{detail.text}</span>
+                {#if detail.tip}
+                  <button
+                    class="tip-icon"
+                    on:mouseenter={() => showTip(detail.tip!)}
+                    on:mouseleave={hideTip}
+                    on:focus={() => showTip(detail.tip!)}
+                    on:blur={hideTip}
+                    aria-label="Show tip"
+                  >
+                    💡
+                  </button>
+                  {#if activeTip === detail.tip}
+                    <div class="tip-bubble">{detail.tip}</div>
+                  {/if}
+                {/if}
+              {:else}
+                {detail}
+              {/if}
+            </li>
           {/each}
         </ul>
       </div>
 
-      {#if step.documents && step.documents.length > 0}
+      {#if step.documentsToGive && step.documentsToGive.length > 0}
         <div class="section">
-          <h4>📄 Required Documents:</h4>
+          <h4>📤 Documents to Provide:</h4>
           <ul class="documents-list">
-            {#each step.documents as doc}
-              <li>{doc}</li>
+            {#each step.documentsToGive as doc}
+              <li>
+                <label class="document-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={documentMap[doc.id] || false}
+                    on:change={() => toggleDocument(doc.id)}
+                  />
+                  <span>{doc.name}</span>
+                </label>
+              </li>
             {/each}
           </ul>
         </div>
       {/if}
 
-      {#if step.tips && step.tips.length > 0}
-        <div class="section tips">
-          <h4>💡 Tips:</h4>
-          <ul>
-            {#each step.tips as tip}
-              <li>{tip}</li>
+      {#if step.documentsToReceive && step.documentsToReceive.length > 0}
+        <div class="section">
+          <h4>📥 Documents to Receive:</h4>
+          <ul class="documents-list receive">
+            {#each step.documentsToReceive as doc}
+              <li>
+                <label class="document-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={documentMap[doc.id] || false}
+                    on:change={() => toggleDocument(doc.id)}
+                  />
+                  <span>{doc.name}</span>
+                </label>
+              </li>
             {/each}
           </ul>
         </div>
@@ -264,28 +334,94 @@
     font-size: 0.85rem;
   }
 
+  .detail-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .detail-text {
+    flex: 1;
+  }
+
+  .tip-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+
+  .tip-icon:hover {
+    transform: scale(1.2);
+  }
+
+  .tip-bubble {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    margin-top: 0.5rem;
+    background: #fffcf5;
+    border: 2px solid #ffc107;
+    border-radius: 6px;
+    padding: 0.75rem;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: #333;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 400px;
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .documents-list li {
-    font-family: 'Courier New', monospace;
     background: #f8f9fa;
     padding: 0.35rem 0.5rem;
     margin: 0.35rem 0;
     border-left: 3px solid #0039a6;
     font-size: 0.85rem;
+    list-style: none;
   }
 
-  .tips {
-    background: #fffcf5;
-    padding: 0.75rem;
-    border-radius: 6px;
-    border-left: 3px solid #ffc107;
+  .documents-list.receive li {
+    border-left-color: #4caf50;
   }
 
-  .tips h4 {
-    color: #333;
+  .document-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
   }
 
-  .tips li {
-    color: #333;
+  .document-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .document-checkbox span {
+    flex: 1;
+    font-family: 'Courier New', monospace;
   }
 
   .location-tips {
@@ -390,6 +526,7 @@
     font-size: 1.2rem;
   }
 
+  /* Tablet breakpoint */
   @media (max-width: 768px) {
     .step-header {
       padding: 1rem;
@@ -412,6 +549,132 @@
     .checkbox {
       width: 28px;
       height: 28px;
+    }
+
+    .step-content {
+      padding: 0 1rem 1rem 1rem;
+    }
+
+    .location-tip-card {
+      padding: 0.75rem;
+    }
+  }
+
+  /* Mobile breakpoint */
+  @media (max-width: 480px) {
+    .step-header {
+      padding: 0.75rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .step-title-section {
+      gap: 0.5rem;
+      flex: 1 1 100%;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      font-size: 0.9rem;
+    }
+
+    h3 {
+      font-size: 0.9rem;
+    }
+
+    .step-actions {
+      gap: 0.75rem;
+      margin-left: auto;
+    }
+
+    .checkbox {
+      width: 26px;
+      height: 26px;
+      font-size: 1rem;
+    }
+
+    .expand-icon {
+      font-size: 0.8rem;
+    }
+
+    .step-content {
+      padding: 0 0.75rem 0.75rem 0.75rem;
+    }
+
+    .description {
+      font-size: 0.85rem;
+    }
+
+    .section {
+      margin: 0.75rem 0;
+    }
+
+    .section h4 {
+      font-size: 0.85rem;
+    }
+
+    .section li {
+      font-size: 0.8rem;
+    }
+
+    .detail-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+
+    .tip-icon {
+      font-size: 0.9rem;
+      align-self: flex-end;
+    }
+
+    .tip-bubble {
+      max-width: calc(100vw - 2rem);
+      font-size: 0.75rem;
+      padding: 0.5rem;
+    }
+
+    .documents-list li {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.4rem;
+    }
+
+    .document-checkbox {
+      gap: 0.4rem;
+    }
+
+    .document-checkbox input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+    }
+
+    .location-tips {
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+    }
+
+    .location-tip-card {
+      padding: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .location-header {
+      padding: 0.5rem;
+      gap: 0.5rem;
+    }
+
+    .location-flag {
+      font-size: 1.25rem;
+    }
+
+    .location-tip-card h5 {
+      font-size: 0.9rem;
+    }
+
+    .location-tip-card li {
+      font-size: 0.8rem;
+      padding: 0.3rem 0 0.3rem 1rem;
     }
   }
 </style>

@@ -72,6 +72,7 @@
   <footer>
     <div class="container">
       <p>⚠️ This guide is based on real experiences from the community. This does not replace legal advices. Procedures may vary by region and time. Seek help online or with a local migration Jurist.</p>
+      <p><a href="https://github.com/saladeolivier/rvp/" target="_blank">Source code</a></p>
     </div>
   </footer>
 </div>
@@ -137,7 +138,8 @@
     display: flex;
     gap: 0.5rem;
     padding: 1rem 20px;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   nav button {
@@ -181,7 +183,32 @@
     text-align: left;
   }
 
+  footer a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  footer a:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Tablet breakpoint */
   @media (max-width: 768px) {
+    .container {
+      padding: 0 16px;
+    }
+
+    header {
+      padding: 1.5rem 0;
+    }
+
     header h1 {
       font-size: 1.8rem;
     }
@@ -190,9 +217,61 @@
       font-size: 1rem;
     }
 
+    nav .container {
+      padding: 0.75rem 16px;
+      gap: 0.4rem;
+    }
+
     nav button {
       padding: 0.6rem 1rem;
       font-size: 0.9rem;
+    }
+
+    main {
+      padding: 1.5rem 16px;
+    }
+
+    footer {
+      padding: 1.5rem 0;
+      margin-top: 2rem;
+    }
+  }
+
+  /* Mobile breakpoint */
+  @media (max-width: 480px) {
+
+    header h1 {
+      font-size: 1.4rem;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    nav .container {
+      padding: 0.5rem 8px;
+      gap: 0.25rem;
+    }
+
+    nav button {
+      padding: 0.4rem 0.6rem;
+      font-size: 0.75rem;
+      flex: 1 1 auto;
+      min-width: fit-content;
+    }
+
+    main {
+      padding: 0.75rem 8px;
+    }
+
+    footer {
+      padding: 1rem 0;
+      margin-top: 1rem;
+    }
+
+    footer p {
+      font-size: 0.75rem;
     }
   }
 </style>

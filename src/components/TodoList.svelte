@@ -393,13 +393,128 @@
     transform: translateY(-1px);
   }
 
+  /* Tablet breakpoint */
   @media (max-width: 768px) {
     .add-todo {
       flex-direction: column;
+      padding: 1rem;
+      gap: 0.75rem;
     }
 
     .add-todo button {
       width: 100%;
+    }
+
+    .todo-header {
+      padding: 1.25rem;
+    }
+
+    .todo-header h2 {
+      font-size: 1.3rem;
+    }
+
+    .filter-section {
+      padding: 0.75rem 1rem;
+    }
+
+    .todo-section {
+      padding: 1rem;
+    }
+
+    .todo-item {
+      padding: 0.6rem;
+      gap: 0.75rem;
+    }
+  }
+
+  /* Mobile breakpoint */
+  @media (max-width: 480px) {
+    .todo-header {
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .todo-header h2 {
+      font-size: 1.2rem;
+    }
+
+    .progress-text {
+      font-size: 0.85rem;
+    }
+
+    .mini-progress {
+      height: 10px;
+    }
+
+    .add-todo {
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .add-todo input {
+      padding: 0.6rem 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .add-todo button {
+      padding: 0.6rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .filter-section {
+      padding: 0.6rem 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .filter-section label {
+      font-size: 0.8rem;
+    }
+
+    .todos-container {
+      gap: 1rem;
+    }
+
+    .todo-section {
+      padding: 0.75rem;
+    }
+
+    .todo-section h3 {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .todos {
+      gap: 0.5rem;
+    }
+
+    .todo-item {
+      padding: 0.5rem;
+      gap: 0.5rem;
+    }
+
+    .todo-checkbox {
+      width: 22px;
+      height: 22px;
+      font-size: 0.9rem;
+    }
+
+    .todo-text {
+      font-size: 0.8rem;
+    }
+
+    .delete-btn {
+      width: 22px;
+      height: 22px;
+      font-size: 0.9rem;
+    }
+
+    .reset-section {
+      margin-top: 1.5rem;
+    }
+
+    .reset-btn {
+      padding: 0.6rem 1.25rem;
+      font-size: 0.85rem;
     }
   }
 </style>

@@ -3,25 +3,29 @@ import type { Step, SideQuest, LocationTip } from '../types';
 export const mainSteps: Step[] = [
   {
     id: 'step1',
-    title: '1. Criminal Record from Home Country',
-    description: 'Obtain police clearance certificate (casier judiciaire) with apostille',
+    title: '1. Clean criminal record from Home Country and Apostille',
+    description: 'Obtain police clearance certificate with apostille',
     details: [
-      'Request criminal record from your home country authorities',
-      'Get apostille stamp on the document (required for Russia)',
-      'No FBI check needed for most EU citizens',
-      'Keep both original and copies - copy acceptable during visa application if apostille pending',
-      'Criminal record validity: approximately 3-6 months from issue date',
+      {
+        text: 'Request criminal record from your home country authorities',
+        tip: 'Apply early - processing can be long depending on your country'
+      },
+      {
+        text: 'Get apostille stamp on the document',
+        tip: 'This legalizes your document for use in Russia'
+      },
+      {
+        text: 'Criminal record validity: usually 3 months from issue date',
+        tip: 'Plan your timeline carefully - you need time to get the visa and apply for RVP'
+      },
+      {
+        text: 'Check for name inconsistencies (e.g., commas, spelling variations)',
+        tip: 'Russian police can do additional checks if needed. If you can\'t fix inconsistencies, contact your consulate for an attestation'
+      },
     ],
-    documents: [
-      'Criminal record certificate',
-      'Apostille stamp',
-    ],
-    tips: [
-      'Apply early - apostille can take 2+ weeks',
-      'Check for name inconsistencies (e.g., commas, spelling variations)',
-      'If flagged for inconsistencies, get consulate attestation (30-50€)',
-      'Russian police can do additional checks if needed',
-      'Submit to migration before expiration (3-6 months validity)',
+    documentsToReceive: [
+      { id: 'criminal_record', name: 'Criminal record certificate' },
+      { id: 'apostille_criminal', name: 'Apostille stamp or e-apostille' },
     ],
     locationTips: [
       {
@@ -43,23 +47,29 @@ export const mainSteps: Step[] = [
     description: 'Apply for Russian private visa at consulate in your home country',
     details: [
       'Find Russian consulate/embassy',
-      'Get an appointment',
-      'Fill visa application form online http://visa.kdmid.ru',
+      {
+        text: 'Get an appointment',
+        tip: 'When looking for a slot, apply for a private visa. Appointments can be scarce.'
+      },
+      {
+        text: 'Fill visa application form online http://visa.kdmid.ru',
+        tip: 'Fill everything exactly as per passport - names, dates, etc. Pay attention to name order.'
+      },
       'Prepare required documents (see list below)',
-      'Visa validity: typically 3 months, single entry',
+      {
+        text: 'Visa validity: typically 3 months, single entry',
+        tip: 'Plan carefully - your criminal record is valid 3 months and you need time in Russia to apply for RVP'
+      },
     ],
-    documents: [
-      'Valid passport',
-      'Filled application form',
-      'Passport photos (3.5x4.5 cm)',
-      'Medical insurance (valid for stay duration, e.g., 1 year)',
-      'Criminal record (copy OK if apostille pending)',
-      'Check your local consulate for any additional requirements',
+    documentsToGive: [
+      { id: 'passport_original', name: 'Valid passport' },
+      { id: 'visa_application_form', name: 'Filled application form' },
+      { id: 'passport_photos', name: 'Passport photos (3.5x4.5 cm)' },
+      { id: 'medical_insurance', name: 'Medical insurance (valid for stay duration, e.g., 1 year)' },
+      { id: 'criminal_record', name: 'Criminal record (copy OK if apostille pending)' },
     ],
-    tips: [
-      'When looking for a slot, apply for a private visa',
-      'Fill everything exactly as per passport - names, dates, etc.',
-      'Keep in mind that your criminal record will be valid 3 months and that you will need some time in Russia to apply for your RVP'
+    documentsToReceive: [
+      { id: 'russian_visa', name: 'Russian private visa' },
     ],
     locationTips: [
       {
@@ -69,7 +79,7 @@ export const mainSteps: Step[] = [
           'No interview needed',
           'Processing time: ~8 days',
           'You should be able to apply trough a visa agency',
-          'Put all your names in the firtname, not in patronyms (unless you do have patronyms)'
+          'Put all your names in the firstname field, not in patronyms (unless you do have patronyms)'
         ],
       },
     ],
@@ -81,20 +91,25 @@ export const mainSteps: Step[] = [
     description: 'Cross border and obtain migration card',
     details: [
       'Choose entry method: air, car, bus',
-      'Get migration card at the border',
-      'Border crossing can take several hours',
-      'If crossing by the european ground border, DO NOT BRING EUROS or any european currency, they will get confiscated',
+      {
+        text: 'Get migration card at the border',
+        tip: 'Take photos/copies immediately as backup. Never lose it - essential for everything. Use a paperclip to secure it to your passport.'
+      },
+      {
+        text: 'Border crossing can take several hours',
+        tip: 'SIM card will not work for 24h hours after entering. Some buses have wifi, airports should have hotspot.'
+      },
+      {
+        text: 'If crossing by the european ground border, DO NOT BRING EUROS or any european currency',
+        tip: 'They will get confiscated at the border'
+      },
     ],
-    documents: [
-      'Valid passport',
-      'Valid visa',
-      'Migration card (received at border)',
+    documentsToGive: [
+      { id: 'passport_original', name: 'Valid passport' },
+      { id: 'russian_visa', name: 'Valid visa' },
     ],
-    tips: [
-      'Take photos/copies of migration card immediately as backup',
-      'Never lose migration card - essential for everything, I suggest having a paperclip to secure it',
-      'If lost, must report to police immediately for replacement',
-      'SIM card will not work for 24h hours after entering. Some buses have wifi, airports should have hotspot'
+    documentsToReceive: [
+      { id: 'migration_card', name: 'Migration card' },
     ],
     locationTips: [],
     completed: false,
@@ -105,25 +120,36 @@ export const mainSteps: Step[] = [
     description: 'Register your address within 7 days of arrival',
     details: [
       'Must be done within 7 working days of arrival',
-      'Can be done via Gosuslugi (online government services) or at MFC (Multi functional centers), hotels usually register you withing 24h, if not ask them about it',
-      'PDF from Gosuslugi is accepted',
-      'Do NOT break migration laws, this can be a big red flag when applying for RVP, do your best to always have a valid registration',
-      'You will need to find a landlord willing to register in the long run',
-      'Make sure that no mistake is made with your Passport ID in the registration (eg. if you have ambiguous characters that could be mistkook with each other: I L 1'
+      {
+        text: 'Can be done via Gosuslugi (online government services) or at MFC (Multi functional centers)',
+        tip: 'Hotels usually register you within 24h, if not ask them about it. Gosuslugi PDF works fine - no need for physical stamp'
+      },
+      {
+        text: 'Do NOT break migration laws',
+        tip: 'This is a big red flag when applying for RVP, do your best to always have a valid registration'
+      },
+      {
+        text: 'You will need to find a landlord willing to register in the long run',
+        tip: 'Hotels will register you, invalidating previous registrations, make sure to not forget the paper slip they give you'
+      },
+      {
+        text: 'Make sure that no mistake is made with your Passport ID in the registration',
+        tip: 'Pay attention to ambiguous characters that could be mistaken with each other: I L 1. Check that your info is right, most importantly passport number'
+      },
+      {
+        text: 'Keep your registration with you at all times',
+        tip: 'Keep a copy of your registration with your passport in case of police check'
+      },
     ],
-    documents: [
-      'Copy of all pages of the passport Passport',
-      'Copy of Migration card',
-      'Previous registrations if you are registering again',
-      'Originals if you apply in person',
-      'FILLED application form if you apply in person'
+    documentsToGive: [
+      { id: 'passport_original', name: 'Original of the passport (in person)' },
+      { id: 'passport_copy_registration', name: 'Copy of all pages of passport' },
+      { id: 'migration_card_copy_registration', name: 'Copy of Migration card' },
+      { id: 'previous_registration', name: 'Previous registrations (if re-registering)' },
+      { id: 'registration_form', name: 'Filled application form (if applying in person), make sure to fill it beforehand' },
     ],
-    tips: [
-      'Do immediately upon arrival - mandatory requirement',
-      'Gosuslugi PDF works fine - no need for physical stamp',
-      'Keep your registration, or a copy of it with you as well as your passport in all time in case of police check',
-      'Hotels will register you, invalidating previous registrations, make sure to not forget the paper slip they give you',
-      'Check that your info are right, most importantly, passport number'
+    documentsToReceive: [
+      { id: 'temp_registration', name: 'Temporary registration document' },
     ],
     locationTips: [],
     completed: false,
@@ -133,21 +159,29 @@ export const mainSteps: Step[] = [
     title: '5. Notarized Translations',
     description: 'Translate all documents to Russian with notarization',
     details: [
-      'ALL passport pages must be translated (including all stamps and visas)',
+      {
+        text: 'ALL passport pages must be translated (including all stamps and visas)',
+        tip: 'Full passport translation, more expensive if you have many stamps, but required'
+      },
       'Criminal record translation required',
-      'Use certified translation agency',
+      {
+        text: 'Use certified translation agency',
+        tip: 'Use reputable agency - check Yandex map for reviews and locations'
+      },
       'Notarization included in service',
-      'Ask to translate your names AS IN YOUR VISA, if they differ, this is ground for refusal of your application'
+      {
+        text: 'Ask to translate your names AS IN YOUR VISA',
+        tip: 'If they differ, this is ground for refusal of your application. Translation valid indefinitely unless passport changes'
+      },
     ],
-    documents: [
-      'Passport (all pages)',
-      'Criminal record with apostile',
-      'Any other foreign documents you would like to add to your file',
+    documentsToGive: [
+      { id: 'passport_original', name: 'Passport (all pages)' },
+      { id: 'criminal_record', name: 'Criminal record with apostille' },
+      { id: 'other_docs', name: 'Any other foreign documents you would like to add to your file' },
     ],
-    tips: [
-      'Use reputable agency - check Yandex map for reviews and locations',
-      'Full passport translation, more expensive if you have many stamps, but required',
-      'Translation valid indefinitely unless passport changes',
+    documentsToReceive: [
+      { id: 'passport_translation', name: 'Notarized passport translation' },
+      { id: 'criminal_record_translation', name: 'Notarized criminal record translation' },
     ],
     locationTips: [
       {
@@ -169,11 +203,14 @@ export const mainSteps: Step[] = [
       'Go to the French consulate in Saint Petersburg during opening time',
       'Ask them to write a letter indicating that your criminal record without comma between your first names is actually yours'
     ],
-    documents: [
-      'Passport with translation',
-      'Criminal record',
+    documentsToGive: [
+      { id: 'passport_original', name: 'Passport' },
+      { id: 'passport_translation', name: 'Passport translation' },
+      { id: 'criminal_record', name: 'Criminal record' },
     ],
-    tips: [],
+    documentsToReceive: [
+      { id: 'consulate_attestation', name: 'Consulate attestation letter' },
+    ],
     locationTips: [],
     completed: false,
   },
@@ -183,16 +220,22 @@ export const mainSteps: Step[] = [
     description: 'Complete required medical tests - HIV, drugs, general health',
     details: [
       'Three separate certificates are required: HIV, drugs, general health',
-      'Must be done in region of registration',
+      {
+        text: 'Must be done in region of registration / application',
+        tip: 'You can pass medical examinations in any certified location, but it will be longer to do than just sit and wait at the migration center'
+      },
       'Cost: ~8,000 rubles (by card)',
       'Pass all the steps, blood check, urine check, narcologue interview, infectiologue interview, fluorology',
       'Results typically ready in a few days',
     ],
-    documents: [
-      'Passport with translation',
+    documentsToGive: [
+      { id: 'passport_original', name: 'Passport' },
+      { id: 'passport_translation', name: 'Passport translation' },
     ],
-    tips: [
-      "You can pass medical examinations in any certified location, but it will be longer to do than just sit and wait at the migration center",
+    documentsToReceive: [
+      { id: 'medical_cert_hiv', name: 'HIV certificate' },
+      { id: 'medical_cert_drugs', name: 'Drug test certificate' },
+      { id: 'medical_cert_general', name: 'General health certificate' },
     ],
     locationTips: [
       {
@@ -224,12 +267,19 @@ export const mainSteps: Step[] = [
       'Done at the migration center',
       'Cost: ~2000 RUB for fingerprints + 2000 RUB for photos',
     ],
-    documents: [
-      'Passport with translation',
-      'Medical certificates (if done in another location)',
-      'Registation just in case',
+    documentsToGive: [
+      { id: 'passport_original', name: 'Passport' },
+      { id: 'passport_translation', name: 'Passport translation' },
+      { id: 'medical_cert_hiv', name: 'HIV certificate (if done in another location)' },
+      { id: 'medical_cert_drugs', name: 'Drug test certificate (if done in another location)' },
+      { id: 'medical_cert_general', name: 'General health certificate (if done in another location)' },
+      { id: 'temp_registration', name: 'Registration (just in case)' },
     ],
-    tips: [],
+    documentsToReceive: [
+      { id: 'medical_cert_hiv', name: 'HIV certificate (given back to get the green card)' },
+      { id: 'medical_cert_drugs', name: 'Drug test certificate (given back to get the green card)' },
+      { id: 'medical_cert_general', name: 'General health certificate (given back to get the green card)' },
+    ],
     locationTips: [
       {
         location: 'Moscow',
@@ -259,15 +309,24 @@ export const mainSteps: Step[] = [
   {
     id: 'step8',
     title: '8. Get the green card',
-    description: 'Submit biometric data',
+    description: 'Receive plastic card attesting medical and biometric clearance',
     details: [
-      'Done at the migration center',
+      {
+        text: 'Done at the migration center',
+        tip: 'Usually ready in 10 days after fingerprints'
+      },
+      'Carefully check that visa, translation and green card names match exactly',
     ],
-    documents: [
-      'Passport with translation',
-      'Medical certificates',
+    documentsToGive: [
+      { id: 'passport_original', name: 'Passport' },
+      { id: 'passport_translation', name: 'Passport translation' },
+      { id: 'medical_cert_hiv', name: 'HIV certificate' },
+      { id: 'medical_cert_drugs', name: 'Drug test certificate' },
+      { id: 'medical_cert_general', name: 'General health certificate' },
     ],
-    tips: [],
+    documentsToReceive: [
+      { id: 'green_card', name: 'Green card (consolidated medical certificate)' },
+    ],
     locationTips: [
       {
         location: 'Moscow',
@@ -295,11 +354,15 @@ export const mainSteps: Step[] = [
     description: 'Pay the government fee for RVP application',
     details: [
       'State fee for RVP application: 1920 RUB',
-      'Can be aid at any bank',
-      'Ask for the receipt, it is needed for application',
+      'Can be paid at any bank',
+      {
+        text: 'Ask for the receipt',
+        tip: 'The receipt is needed for your RVP application - do not lose it'
+      },
     ],
-    documents: [],
-    tips: [],
+    documentsToReceive: [
+      { id: 'state_fee_receipt', name: 'State fee payment receipt' },
+    ],
     locationTips: [
       {
         location: 'Saint Petersburg and Leningrad oblast',
@@ -315,24 +378,32 @@ export const mainSteps: Step[] = [
     title: '10. Prepare your form and documents for RVP',
     description: 'Fill the document and print copies',
     details: [
-      'Fill out the RVP application form',
-      'Get copies of your documents and pictures',
-      'This can be done in any copy center, check yandex map'
+      'Fill out the RVP application form (2 copies)',
+      {
+        text: 'Get copies of your documents and pictures',
+        tip: 'This can be done in any copy center, check Yandex map'
+      },
+      {
+        text: 'Verify all documents are prepared',
+        tip: 'If you have a specific situation, get advice from the community or a migration jurist'
+      },
     ],
-    documents: [
-      'Filled application form (2 copies)',
-      'Passport and notarized translation',
-      'Migration card + copy',
-      'Criminal record + apostille + notarized translation',
-      'Green card + copy',
-      'Registration + copy (if done online, print the PDF)',
-      '4 mate photos in 35x45mm size',
-      'Receipt payment of the state fee',
-      'For French with multiple first name applying in SPB, certificate from consulate',
-      'Any other supporting documents you want to add to your file',
-    ],
-    tips: [
-      'If you have a specific situation, get advice from the community or a migration Jurist',
+    documentsToGive: [
+      { id: 'rvp_application_form', name: 'Filled RVP application form (2 copies)' },
+      { id: 'passport_original', name: 'Passport (original)' },
+      { id: 'passport_translation', name: 'Notarized passport translation' },
+      { id: 'migration_card', name: 'Migration card' },
+      { id: 'migration_card_copy', name: 'Migration card copy' },
+      { id: 'criminal_record', name: 'Criminal record with apostille (original)' },
+      { id: 'criminal_record_translation', name: 'Notarized criminal record translation' },
+      { id: 'green_card', name: 'Green card (original)' },
+      { id: 'green_card_copy', name: 'Green card copy' },
+      { id: 'temp_registration', name: 'Registration (if done online, print the PDF)' },
+      { id: 'temp_registration_copy', name: 'Registration copy' },
+      { id: 'rvp_photos', name: '4 matte photos in 35x45mm size' },
+      { id: 'state_fee_receipt', name: 'State fee payment receipt' },
+      { id: 'consulate_attestation', name: 'Certificate from consulate (if French with multiple first names in SPB)' },
+      { id: 'supporting_docs', name: 'Any other supporting documents you want to add to your file' },
     ],
     locationTips: [
       {
@@ -352,27 +423,37 @@ export const mainSteps: Step[] = [
     title: '11. RVP Submission',
     description: 'Submit complete application package at migration center',
     details: [
-      'Go to migration center with all documents',
-      'Plan to come early',
+      {
+        text: 'Go to migration center with all documents',
+        tip: 'Plan to come early'
+      },
       'Get in the queue',
-      'Officer reviews all documents and your situation (registration etc)',
-      'May flag name inconsistencies or past violations',
-      'Explain any issues',
+      {
+        text: 'Officer reviews all documents and your situation (registration etc)',
+        tip: 'May flag name inconsistencies or past violations - be prepared to explain any issues'
+      },
       'Receive acceptance certificate (Spravka) with case number',
     ],
-    documents: [
-      'Filled application form (2 copies)',
-      'Passport and notarized translation',
-      'Migration card + copy',
-      'Criminal record + apostille + notarized translation',
-      'Green card + copy',
-      'Registration + copy (if done online, print the PDF)',
-      '4 mate photos in 35x45mm size',
-      'Receipt payment of the state fee',
-      'For French with multiple first name applying in SPB, certificate from consulate',
-      'Any other supporting documents you want to add to your file',
+    documentsToGive: [
+      { id: 'rvp_application_form', name: 'Filled RVP application form (2 copies)' },
+      { id: 'passport_original', name: 'Passport (original)' },
+      { id: 'passport_translation', name: 'Notarized passport translation' },
+      { id: 'migration_card', name: 'Migration card' },
+      { id: 'migration_card_copy', name: 'Migration card copy' },
+      { id: 'criminal_record', name: 'Criminal record with apostille (original)' },
+      { id: 'criminal_record_translation', name: 'Notarized criminal record translation' },
+      { id: 'green_card', name: 'Green card (original)' },
+      { id: 'green_card_copy', name: 'Green card copy' },
+      { id: 'temp_registration', name: 'Registration (if done online, print the PDF)' },
+      { id: 'temp_registration_copy', name: 'Registration copy' },
+      { id: 'rvp_photos', name: '4 matte photos in 35x45mm size' },
+      { id: 'state_fee_receipt', name: 'State fee payment receipt' },
+      { id: 'consulate_attestation', name: 'Certificate from consulate (if French with multiple first names in SPB)' },
+      { id: 'supporting_docs', name: 'Any other supporting documents you want to add to your file' },
     ],
-    tips: [],
+    documentsToReceive: [
+      { id: 'rvp_spravka', name: 'RVP acceptance certificate (Spravka) with case number' },
+    ],
     locationTips: [
       {
         location: 'Saint Petersburg',
@@ -393,22 +474,28 @@ export const mainSteps: Step[] = [
     title: '12. Visa Extension',
     description: 'Extend visa during RVP wait',
     details: [
-      'Use acceptance certificate (Spravka) to extend your visa (idealy private 702)',
+      'Use acceptance certificate (Spravka) to extend your visa (ideally private 702)',
       'Go to any "otdel po voprosam migratsii umvd" (Отдел по вопросам миграции УМВД)',
       'The procedure is usually called "восстановить визу" (restore/extend)',
-      'You will receive an apointment for the day of expiration of your visa',
+      {
+        text: 'You will receive an appointment for the day of expiration of your visa',
+        tip: 'Don\'t wait until last day - apply early'
+      },
       'Come back at this time, you\'ll be instructed to pay state fee at a bank and then will receive your new visa',
+      {
+        text: 'Alternative: You can exit and re-enter Russia',
+        tip: 'You can always exit the country with your private single entry visa, but you will need to make a new one to come back (you can come back with a touristic visa)'
+      },
     ],
-    documents: [
-      'Acceptance certificate (spravka)',
-      'Current visa',
-      'Migration card',
-      'Registration',
-      'State fee receipt',
+    documentsToGive: [
+      { id: 'rvp_spravka', name: 'RVP acceptance certificate (Spravka)' },
+      { id: 'passport_original', name: 'Passport with current visa' },
+      { id: 'migration_card', name: 'Migration card' },
+      { id: 'temp_registration', name: 'Registration' },
+      { id: 'visa_extension_fee_receipt', name: 'State fee receipt (paid at bank as instructed)' },
     ],
-    tips: [
-      'Don\'t wait until last day - apply early',
-      'You can always exit the country with your private single entry visa, but you will need to make a new one to come back (you can come back with a touristic visa)'
+    documentsToReceive: [
+      { id: 'extended_visa', name: 'Extended visa' },
     ],
     locationTips: [
       {
@@ -428,18 +515,26 @@ export const mainSteps: Step[] = [
     description: 'Wait for RVP processing - travel allowed with valid visa',
     details: [
       'Processing time: usually takes 4 months from submission',
-      'You CAN leave Russia during this time',
-      'Must re-enter with valid visa (type doesn\'t matter)',
-      'Extend visa if expiring during wait (see above)',
-      'Online tracking service usualy don\t work...',
+      {
+        text: 'You CAN leave Russia during this time',
+        tip: 'Must re-enter with valid visa (type doesn\'t matter)'
+      },
+      {
+        text: 'Extend visa if expiring during wait (see step 12)',
+        tip: 'Don\'t let your visa expire - apply for extension early'
+      },
+      {
+        text: 'Online tracking service usually doesn\'t work',
+        tip: 'Be prepared to check in person or wait for the full 4 months'
+      },
     ],
-    documents: [
-      'Passport',
-      'Valid visa',
-      'Acceptance certificate',
-      'Registration'
+    documentsToGive: [
+      { id: 'passport_original', name: 'Passport' },
+      { id: 'rvp_spravka', name: 'RVP acceptance certificate (Spravka)' },
     ],
-    tips: [],
+    documentsToReceive: [
+      { id: 'rvp_stamp', name: 'RVP stamp in passport' },
+    ],
     locationTips: [
       {
         location: 'Saint Petersburg',
@@ -455,52 +550,82 @@ export const mainSteps: Step[] = [
   },
   {
     id: 'step14_1',
-    title: '14.1 Temporary Registration',
-    description: 'Very important',
+    title: '14.1 Temporary Registration with RVP',
+    description: 'Register your address after receiving RVP - CRITICAL',
     details: [
-      'Same as step 4, you will need to register your RVP, you have 7 working day to do it, DO NOT WAIT until the last minute',
+      {
+        text: 'You have 7 WORKING DAYS to register after receiving RVP',
+        tip: 'DO NOT WAIT until the last minute - this is critical and can result in RVP cancellation'
+      },
+      'Same process as step 4, but now with your RVP stamp',
       'Valid maximum 3 months',
-      'You need to register again if you leave the country, get registered in a hotel or another city',
-      'Can be done in MFC'
+      {
+        text: 'You need to register again if you leave the country, get registered in a hotel or another city',
+        tip: 'Each new registration invalidates the previous one'
+      },
+      'Can be done at MFC',
     ],
-    documents: [
-      'Passport',
-      'RVP',
+    documentsToGive: [
+      { id: 'passport_original', name: 'Passport with RVP stamp' },
+      { id: 'passport_copy_registration', name: 'Copy of all pages of passport' },
+      { id: 'registration_form', name: 'Filled application form (if applying in person)' },
     ],
-    tips: [],
+    documentsToReceive: [
+      { id: 'rvp_registration', name: 'RVP registration document' },
+    ],
     locationTips: [],
     completed: false,
   },
   {
     id: 'step14_2',
     title: '14.2 Permanent Registration',
-    description: 'If you find a landlord willing to do so or that you have your own place',
+    description: 'Get permanent registration if you have landlord support or own property',
     details: [
-      'Go to MFC to register permanently with your owner',
+      {
+        text: 'Go to MFC to register permanently with your landlord/owner',
+        tip: 'This requires landlord cooperation and property ownership documents'
+      },
       'Bring all required documents',
-      'You will then receive a stamp in your passport, allowing you to travel freely in Russia and Abroad without having to register again',
+      {
+        text: 'You will receive a stamp in your passport',
+        tip: 'This allows you to travel freely in Russia and abroad without having to re-register'
+      },
     ],
-    documents: [
-      'Your passport with RVP (translated/notarized)',
-      'Landlord\'s passport',
-      'Property ownership proof',
-      'Rental agreement (if it has your passport details)',
-      'House register extract',
+    documentsToGive: [
+      { id: 'passport_original', name: 'Passport with RVP stamp' },
+      { id: 'passport_translation', name: 'Passport translation (notarized)' },
+      { id: 'landlord_passport', name: 'Landlord\'s passport' },
+      { id: 'property_ownership_proof', name: 'Property ownership proof' },
+      { id: 'rental_agreement', name: 'Rental agreement (if it has your passport details)' },
+      { id: 'house_register_extract', name: 'House register extract' },
     ],
-    tips: [],
+    documentsToReceive: [
+      { id: 'permanent_registration_stamp', name: 'Permanent registration stamp in passport' },
+    ],
     locationTips: [],
     completed: false,
   },
   {
     id: 'step15',
-    title: '15. Police check',
-    description: 'The police might come check if you leave where you declared',
+    title: '15. Police Check',
+    description: 'Police verification that you live where you declared',
     details: [
-      'They can combe before or after receiving the RVP, and multiple times (in small cities it can be every months)',
-      'They will simply check your passport, RVP, registration, and ask a few informations about your owners and who you live with'
+      {
+        text: 'Police may visit before or after receiving RVP, potentially multiple times',
+        tip: 'In small cities this can happen every month'
+      },
+      {
+        text: 'They will check your passport, RVP, and registration',
+        tip: 'They will ask about your landlord and who you live with - be honest and cooperative'
+      },
+      'Keep all documents with you at home',
+      'Make sure your neighbors know about you, if you\'re not home they will ask them',
     ],
-    documents: [],
-    tips: [],
+    documentsToGive: [
+      { id: 'passport_original', name: 'Passport with RVP stamp' },
+      { id: 'rvp_registration', name: 'Current registration document' },
+    ],
+    locationTips: [],
     completed: false,
   },
   {
@@ -508,22 +633,26 @@ export const mainSteps: Step[] = [
     title: '16. Annual Notification',
     description: 'Notify authorities yearly after RVP',
     details: [
-      'RVP holders must submit annual address notification',
-      'Deadline: within 2 months of RVP anniversary date',
-      'Confirm you still reside in region that issued RVP',
-      'Failure to notify results in RVP cancellation',
+      {
+        text: 'RVP holders must submit annual address notification',
+        tip: 'Set yearly reminder - this is a critical requirement'
+      },
+      {
+        text: 'Deadline: within 2 months of RVP anniversary date',
+        tip: 'Missing this deadline results in RVP cancellation - do not forget!'
+      },
+      {
+        text: 'Confirm you still reside in region that issued RVP',
+        tip: 'RVP is region-specific - must live in issuing region. Moving regions requires special permission'
+      },
+      'Submit proof of income and address',
     ],
-    documents: [
-      'Passport with RVP',
-      'Registration document',
-      'Proof of funds, tax documents (2ndfl, 3ndfl) of the amount of the 12x the subsistence minimum'
+    documentsToGive: [
+      { id: 'passport_original', name: 'Passport with RVP stamp' },
+      { id: 'rvp_registration', name: 'Current registration document' },
+      { id: 'proof_of_funds', name: 'Proof of funds - tax documents (2-NDFL, 3-NDFL) equal to 12x the subsistence minimum' },
     ],
-    tips: [
-      'Set yearly reminder - critical requirement',
-      'Within 2 months of anniversary',
-      'RVP region-specific - must live in issuing region',
-      'Moving regions requires special permission',
-    ],
+    locationTips: [],
     completed: false,
   },
 ];

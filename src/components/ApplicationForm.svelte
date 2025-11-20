@@ -430,6 +430,7 @@ and use their official forms for submission.
     text-align: left;
   }
 
+  /* Tablet breakpoint */
   @media (max-width: 768px) {
     .form-grid {
       grid-template-columns: 1fr;
@@ -441,6 +442,88 @@ and use their official forms for submission.
 
     .generate-btn {
       width: 100%;
+    }
+
+    .form-header {
+      padding: 1.25rem;
+    }
+
+    .form-header h2 {
+      font-size: 1.3rem;
+    }
+
+    form {
+      padding: 1.25rem;
+    }
+
+    .form-section {
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+    }
+  }
+
+  /* Mobile breakpoint */
+  @media (max-width: 480px) {
+    .form-header {
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .form-header h2 {
+      font-size: 1.2rem;
+    }
+
+    .form-header p {
+      font-size: 0.85rem;
+    }
+
+    form {
+      padding: 0.75rem;
+    }
+
+    .form-section {
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    .form-section h3 {
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .form-grid {
+      gap: 0.75rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+    }
+
+    input,
+    select,
+    textarea {
+      padding: 0.5rem 0.6rem;
+      font-size: 0.85rem;
+    }
+
+    .form-actions {
+      margin-top: 1rem;
+      gap: 0.75rem;
+    }
+
+    .generate-btn,
+    .clear-btn {
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    .form-notice {
+      padding: 0.6rem 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .form-notice p {
+      font-size: 0.8rem;
     }
   }
 </style>

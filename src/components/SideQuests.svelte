@@ -197,9 +197,86 @@
     color: #c62828;
   }
 
+  /* Tablet breakpoint */
   @media (max-width: 768px) {
     .quests-grid {
       grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .intro {
+      padding: 1.25rem;
+    }
+
+    .intro h2 {
+      font-size: 1.3rem;
+    }
+
+    .intro p {
+      font-size: 0.9rem;
+    }
+
+    .quest-card {
+      padding: 1rem;
+    }
+
+    .checkbox {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  /* Mobile breakpoint */
+  @media (max-width: 480px) {
+    .intro {
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .intro h2 {
+      font-size: 1.2rem;
+    }
+
+    .intro p {
+      font-size: 0.85rem;
+    }
+
+    .quests-grid {
+      gap: 0.75rem;
+    }
+
+    .quest-card {
+      padding: 0.75rem;
+    }
+
+    .quest-header h3 {
+      font-size: 1rem;
+    }
+
+    .checkbox {
+      width: 26px;
+      height: 26px;
+      margin-left: 0.75rem;
+    }
+
+    .quest-description {
+      font-size: 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .quest-steps h4 {
+      font-size: 0.85rem;
+    }
+
+    .quest-steps li {
+      font-size: 0.8rem;
+    }
+
+    .optional-badge,
+    .required-badge {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      margin-top: 0.75rem;
     }
   }
 </style>

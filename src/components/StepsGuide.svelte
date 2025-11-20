@@ -54,4 +54,43 @@
     flex-direction: column;
     gap: 1rem;
   }
+
+  /* Tablet breakpoint */
+  @media (max-width: 768px) {
+    .intro {
+      padding: 1.25rem;
+    }
+
+    .intro h2 {
+      font-size: 1.3rem;
+    }
+
+    .intro p {
+      font-size: 0.9rem;
+    }
+
+    .steps-list {
+      gap: 0.75rem;
+    }
+  }
+
+  /* Mobile breakpoint */
+  @media (max-width: 480px) {
+    .intro {
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .intro h2 {
+      font-size: 1.2rem;
+    }
+
+    .intro p {
+      font-size: 0.85rem;
+    }
+
+    .steps-list {
+      gap: 0.5rem;
+    }
+  }
 </style>
